@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-menu-button',
   templateUrl: './menu-button.component.html',
   styleUrls: ['./menu-button.component.css']
 })
-export class MenuButtonComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class MenuButtonComponent {
+  @Input()
+  icon: string;
+  @Input()
+  route: string;
+  @Input()
+  caption: string;
+  @Input()
+  tooltip: string;
 }

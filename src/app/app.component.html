@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<app-main-view-desktop id="main-view-desktop" *ngIf="!isMobile()"></app-main-view-desktop>
+<app-main-view-mobile id="main-view-mobile" *ngIf="isMobile()"></app-main-view-mobile>

@@ -1,3 +1,17 @@
-<p>
-  main-view-desktop works!
-</p>
+<div class="container">
+  <mat-toolbar color="primary" class="toolbar mat-elevation-z12">
+      <img id="logo-image" src="http://via.placeholder.com/200x50">
+    <div class="primary">
+      <div class="left">
+        <app-menu-button id="button-orders" caption="Zamówienia" icon="business_center" tooltip="Naciśnij aby otworzyć zamowienia" route='/orders' ></app-menu-button>
+        <app-menu-button id="button-products" caption="Produkty" icon="shopping_basket" tooltip="Naciśnij aby otworzyć produkty" route='/products'></app-menu-button>
+      </div>
+      <div class="right">
+        <app-menu-button id="button-add-order" caption="Nowe zamowienie" icon="add_shopping_cart" tooltip="Naciśnij aby otworzyć zamowienia"></app-menu-button>
+        <app-menu-button id="button-settings" caption="Ustawienia" icon="settings" tooltip="Naciśnij aby otworzyć ustawienia"></app-menu-button>
+        <app-menu-button id="button-logout" caption="Wyloguj" icon="exit_to_app" tooltip="Naciśnij aby się wylogować"></app-menu-button>
+      </div>
+    </div>
+  </mat-toolbar>
+  <router-outlet fxFlex="grow"></router-outlet>
+</div>

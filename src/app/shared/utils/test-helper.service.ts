@@ -1,5 +1,6 @@
-/*import { ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {} from 'jasmine';
 
 export class TestHelperService<T> {
   fixture: ComponentFixture<T>;
@@ -56,5 +57,5 @@ export class TestHelperService<T> {
     const uiElement = this.getElementByCss(elementName);
     return uiElement.children.length;
   }
-}*/
+}
 

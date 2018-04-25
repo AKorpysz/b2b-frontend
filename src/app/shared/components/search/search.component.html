@@ -1,3 +1,7 @@
-<p>
-  search works!
-</p>
+<mat-toolbar class="toolbar mat-elevation-z12">
+    <mat-icon color='secondary'>search</mat-icon>
+    <mat-form-field>
+        <input class="autocomplete" type="text" matInput [matAutocomplete]="auto">
+    </mat-form-field>
+    <mat-icon color='secondary'>close</mat-icon>
+</mat-toolbar>

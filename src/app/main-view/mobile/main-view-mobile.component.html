@@ -1,3 +1,39 @@
-<p>
-  main-view-mobile works!
-</p>
+<div class="container">
+  <mat-toolbar color="primary" class="toolbar mat-elevation-z12">
+
+    <button id='button-hamburger' mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 fxFlex="grow">module title</h1>
+    <div class="left">
+      <button id='button-basket' mat-icon-button>
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="56">
+    <mat-sidenav #sidenav [mode]="over" [fixedInViewport]="side" fixedTopGap="56" class="sidenav-menu-content">
+      <div fxLayout="column" class="left-menu-container">
+        <div fxFlex="90" fxLayout="column">
+          <img id="logo-image" src="http://via.placeholder.com/200x100">
+          <app-menu-button class="button" id="button-orders" caption="Zamówienia" icon="business_center" tooltip="Naciśnij aby otworzyć zamowienia"
+            route='/orders'></app-menu-button>
+          <app-menu-button class="button" id="button-products" caption="Produkty" icon="shopping_basket" tooltip="Naciśnij aby otworzyć produkty"
+            route='/products'></app-menu-button>
+          <app-menu-button class="button" id="button-add-order" caption="Nowe zamowienie" icon="add_shopping_cart" tooltip="Naciśnij aby otworzyć zamowienia"></app-menu-button>
+        </div>
+        <div fxFlex="10" fxLayout="column" [style.marginBottom.px]="40">
+          <app-menu-button class="button" id="button-settings" caption="Ustawienia" icon="settings" tooltip="Naciśnij aby otworzyć ustawienia"></app-menu-button>
+          <app-menu-button class="button" id="button-logout" caption="Wyloguj" icon="exit_to_app" tooltip="Naciśnij aby się wylogować"></app-menu-button>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div fxFlex="grow" id='div-router'>
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

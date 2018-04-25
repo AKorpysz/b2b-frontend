@@ -1,8 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Injectable()
-export class ScreenDetectorService {
+export class ScreenDetectorService
+  implements  OnDestroy {
+  private mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
-  constructor() { }
+  setDetectors(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  public isMobile(): boolean {
+    if (this.mobileQuery !== null && this.mobileQuery !== undefined) {
+      return this.mobileQuery.matches;
+    }
+    return false;
+  }
 }

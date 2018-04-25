@@ -24,7 +24,8 @@ import { ScreenDetectorService } from './shared/services/screen-detector/screen-
 import { LoginService } from './login/service/login.service';
 import { MaterialModule } from './shared/material/material.module';
 import { AppRoutingModule } from './shared/routing/routing.module';
-
+import { ProductListComponent } from './products/list/product-list.component';
+import 'hammerjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { AppRoutingModule } from './shared/routing/routing.module';
     ProductAddComponent,
     OrderVeryficationComponent,
     OrderListComponent,
+    ProductListComponent,
     ProductDetailsComponent,
     MenuButtonComponent,
     SearchComponent,
