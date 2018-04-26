@@ -28,6 +28,7 @@ import { ProductListComponent } from './products/list/product-list.component';
 import 'hammerjs';
 import { SearchService } from './shared/services/search/search.service';
 import { OrdersServiceMock } from './mocks/orders.mock.service';
+import { ConstructionService } from './shared/services/construction/construction.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { OrdersServiceMock } from './mocks/orders.mock.service';
     ProductService,
     ScreenDetectorService,
     SearchService,
-    LoginService
+    LoginService,
+    ConstructionService
     ],
   bootstrap: [AppComponent]
 })
