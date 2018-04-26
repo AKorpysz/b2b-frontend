@@ -70,7 +70,7 @@ export class OrderListComponent implements OnInit {
   onRowClick(row) {
     const shouldRedirect = row.id === this.selectedRowIndex;
     this.selectedRowIndex = row.id;
-    console.log(shouldRedirect);
+    // console.log(shouldRedirect);
     if (shouldRedirect) {
       // console.log('Routed !');
       this.router.navigate(['/order', row.id]);
