@@ -4,7 +4,7 @@
       <mat-icon >search</mat-icon>
     </button>
     <mat-form-field [ngClass]="isMobile()?'mobilesearchinput':'desktopsearchinput'">
-      <input type="text" matInput [matAutocomplete]="auto" [value]="searchValue">
+      <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="searchValue" (keyup.enter)="search($event.target.value)" (keyup)="getPrompts($event.target.value)">
     </mat-form-field>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let hint of hints" [value]="hint" (click)="searchHint(hint)">

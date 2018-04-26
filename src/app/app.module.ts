@@ -27,6 +27,7 @@ import { AppRoutingModule } from './shared/routing/routing.module';
 import { ProductListComponent } from './products/list/product-list.component';
 import 'hammerjs';
 import { SearchService } from './shared/services/search/search.service';
+import { OrdersServiceMock } from './mocks/orders.mock.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,7 @@ import { SearchService } from './shared/services/search/search.service';
     ScreenDetectorService,
     SearchService,
     LoginService
-  ],
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
