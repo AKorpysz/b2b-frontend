@@ -26,6 +26,7 @@ import { MaterialModule } from './shared/material/material.module';
 import { AppRoutingModule } from './shared/routing/routing.module';
 import { ProductListComponent } from './products/list/product-list.component';
 import 'hammerjs';
+import { SearchService } from './shared/services/search/search.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import 'hammerjs';
     OrdersService,
     ProductService,
     ScreenDetectorService,
+    SearchService,
     LoginService
   ],
   bootstrap: [AppComponent]

@@ -1,7 +1,18 @@
 <mat-toolbar class="toolbar mat-elevation-z12">
-    <mat-icon color='secondary'>search</mat-icon>
-    <mat-form-field>
-        <input class="autocomplete" type="text" matInput [matAutocomplete]="auto">
+  <div [ngClass]="isMobile()?'mobilecomplete':'desktopautocomplete'">
+    <button mat-icon-button color="primary" click="search()">
+      <mat-icon >search</mat-icon>
+    </button>
+    <mat-form-field [ngClass]="isMobile()?'mobilesearchinput':'desktopsearchinput'">
+      <input type="text" matInput [matAutocomplete]="auto" [value]="searchValue">
     </mat-form-field>
-    <mat-icon color='secondary'>close</mat-icon>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let hint of hints" [value]="hint" (click)="searchHint(hint)">
+        {{ hint }}
+      </mat-option>
+    </mat-autocomplete>
+    <button mat-icon-button color="primary" (click)="clean()">
+      <mat-icon >close</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
