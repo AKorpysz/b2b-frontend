@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrderStatus } from '../../shared/data/order-status';
+import { Status } from '../../shared/data/status';
 import { Order } from '../../shared/data/order';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
@@ -7,6 +7,7 @@ import { OrdersService } from '../service/orders.service';
 import { SearchService } from '../../shared/services/search/search.service';
 import { Router } from '@angular/router';
 import { Unsubscriber } from '../../shared/decorators/unsubscriber';
+import { OrderFlat } from '../../shared/data/order-flat';
 
 @Component({
   selector: 'app-order-list',
@@ -15,7 +16,7 @@ import { Unsubscriber } from '../../shared/decorators/unsubscriber';
 })
 @Unsubscriber
 export class OrderListComponent implements OnInit {
-  dataSource = new MatTableDataSource<Order>();
+  dataSource = new MatTableDataSource<OrderFlat>();
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -39,28 +40,35 @@ export class OrderListComponent implements OnInit {
    'externalNumberSa',
    'status',
    'construction',
-   'responsiblePerson',
-   'dateCreation',
-   'dateLimit'];
+   'aplicant',
+   'deciding',
+   'creationDate',
+   'suspectedDate',
+   'realisationDate',
+   'amountConfirmed',
+   'amountRejected',
+   'producers',
+  ];
+
   ngOnInit(): void {
-    let orders = new Array<Order>();
+    let orders = new Array<OrderFlat>();
     this.orderSubscription = this.ordersService.getOrders().subscribe(x => orders = x);
     this.dataSource = new MatTableDataSource(orders);
     this.getPropmptsSubscription = this.searchService.isDataNeeded$.subscribe(x => this.getPrompts(x));
     this.searchSubscription = this.searchService.searchFinishedData$.subscribe(x => this.search(x));
   }
 
-  getColor(status: OrderStatus) {
+  getColor(status: Status) {
     if (!status) {
       return this.colorDefault;
     }
     switch (status) {
-      case OrderStatus.WAITING:
+      case Status.WAITING:
         return this.colorWarn;
-      case OrderStatus.REJECTED:
-      case OrderStatus.ERROR:
+      case Status.REJECTED:
+      case Status.ERROR:
         return this.colorError;
-      case OrderStatus.ACCEPTED:
+      case Status.ACCEPTED:
         return this.colorOk;
       default:
         return this.colorDefault;

@@ -1,3 +1,4 @@
+<div class="container">
 <app-search class="search"></app-search>
 <div class="gridContainer">
   <mat-table #table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
@@ -26,25 +27,51 @@
       <mat-cell *matCellDef="let element"> {{element.construction}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="responsiblePerson">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Osoba odpowiedzialna </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.responsiblePerson}} </mat-cell>
+    <ng-container matColumnDef="aplicant">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Osoba składająca </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.aplicant}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="dateCreation">
+    <ng-container matColumnDef="deciding">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Osoba decydująca </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.deciding}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="creationDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Data utworzenia </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.dateCreation | date:"dd-MM-yyyy HH:mm:ss"}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.creationDate | date:"dd-MM-yyyy HH:mm:ss"}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="dateLimit">
+    <ng-container matColumnDef="suspectedDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Data suspectedDate </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.suspectedDate | date:"dd-MM-yyyy HH:mm:ss"}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="realisationDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Data realizacji </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.dateLimit | date:"dd-MM-yyyy HH:mm:ss"}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.realisationDate | date:"dd-MM-yyyy HH:mm:ss"}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amountConfirmed">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ile zatwierdzonych </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.amountConfirmed }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amountRejected">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ile odrzuconych </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.amountRejected }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="producers">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Producenci </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.producers }} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="onRowClick(row)"></mat-row>
 
   </mat-table>
-  <mat-paginator #paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+  <mat-paginator #paginator [length]="resultsLength" [pageSize]="20" [pageSizeOptions]="[5, 10, 25, 100]">
   </mat-paginator>
+</div>
 </div>

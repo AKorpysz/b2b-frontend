@@ -26,22 +26,6 @@
       </mat-option>
     </mat-autocomplete>
 
-  <mat-form-field>
-    <input matInput placeholder="Osoba odpowiedzialna" [(ngModel)]="order.responsiblePerson">
-  </mat-form-field>
-
-  <mat-form-field>
-      <input matInput [matDatepicker]="datePickerCreationDate" placeholder="Data utworzenia" [(ngModel)]="order.dateCreation">
-      <mat-datepicker-toggle matSuffix [for]="datePickerCreationDate"></mat-datepicker-toggle>
-      <mat-datepicker #datePickerCreationDate></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field>
-      <input matInput [matDatepicker]="datePickerLimitDate" placeholder="Data zatwierdzenia" [(ngModel)]="order.dateLimit">
-      <mat-datepicker-toggle matSuffix [for]="datePickerLimitDate"></mat-datepicker-toggle>
-      <mat-datepicker #datePickerLimitDate></mat-datepicker>
-  </mat-form-field>
-
   <button  mat-raised-button color="primary" type="file"  id="file" click=loadData()>Wczytaj excela</button>
 
   <div class="form-group">

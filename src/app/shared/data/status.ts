@@ -1,4 +1,4 @@
-export enum OrderStatus {
+export enum Status {
   ACCEPTED= 4,
   WAITING= 1,
   REJECTED= 2,

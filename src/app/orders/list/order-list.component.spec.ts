@@ -13,9 +13,9 @@ import { OrdersServiceMock } from '../../mocks/orders.mock.service';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { TestHelperService } from '../../shared/utils/test-helper.service';
-import { OrderStatus } from '../../shared/data/order-status';
 import { OrderStatusPipe } from '../../shared/pipes/order-status/order-status.pipe';
 import { FormsModule } from '@angular/forms';
+import { Status } from '../../shared/data/status';
 
 describe('OrderListComponent', () => {
   let component: OrderListComponent;
@@ -48,10 +48,10 @@ describe('OrderListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should have 8 columns', () => {
+  it('should have 13 columns', () => {
     const headerName = 'mat-header-row';
     testService.checkElementExistByCss(headerName);
-    expect(testService.getChildrenLenghtOfForCssName(headerName)).toEqual(8);
+    expect(testService.getChildrenLenghtOfForCssName(headerName)).toEqual(13);
   });
 
   it('should contain pagination ', () => {
@@ -67,18 +67,18 @@ describe('OrderListComponent', () => {
   });
 
   it('should have warn color font for waiting status', () => {
-    expect(component.getColor(OrderStatus.WAITING)).toEqual('yellow');
+    expect(component.getColor(Status.WAITING)).toEqual('yellow');
   });
 
   it('should have error color font for rejected status', () => {
-    expect(component.getColor(OrderStatus.REJECTED)).toEqual('red');
+    expect(component.getColor(Status.REJECTED)).toEqual('red');
   });
 
   it('should have error color font for error status', () => {
-    expect(component.getColor(OrderStatus.ERROR)).toEqual('red');
+    expect(component.getColor(Status.ERROR)).toEqual('red');
   });
 
   it('should have accepted color font for accepted status', () => {
-    expect(component.getColor(OrderStatus.ACCEPTED)).toEqual('green');
+    expect(component.getColor(Status.ACCEPTED)).toEqual('green');
   });
 });

@@ -1,23 +1,23 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OrderStatus } from '../../data/order-status';
+import { Status } from '../../data/status';
 
 @Pipe({
   name: 'orderStatus'
 })
 export class OrderStatusPipe implements PipeTransform {
-  transform(value: OrderStatus): string {
+  transform(value: Status): string {
     const noData = 'Brak danych';
     if (!value) {
       return noData;
     }
     switch (value) {
-      case OrderStatus.ACCEPTED:
+      case Status.ACCEPTED:
         return 'Zaakceptowane';
-      case OrderStatus.ERROR:
+      case Status.ERROR:
         return 'Błąd systemu';
-      case OrderStatus.REJECTED:
+      case Status.REJECTED:
         return 'Odrzucone';
-      case OrderStatus.WAITING:
+      case Status.WAITING:
         return 'W trakcie realizacji';
       default:
         return noData;

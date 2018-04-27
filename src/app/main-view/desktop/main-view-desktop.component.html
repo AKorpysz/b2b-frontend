@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-toolbar color="primary" class="toolbar mat-elevation-z12">
+  <mat-toolbar color="primary" class="sticky toolbar mat-elevation-z12">
       <img id="logo-image" src="http://via.placeholder.com/200x50">
     <div class="primary">
       <div class="left">
@@ -13,5 +13,8 @@
       </div>
     </div>
   </mat-toolbar>
-  <router-outlet fxFlex="grow"></router-outlet>
+  <div class="dataContainer">
+    <router-outlet fxFlex="grow"></router-outlet>
+  </div>
+
 </div>

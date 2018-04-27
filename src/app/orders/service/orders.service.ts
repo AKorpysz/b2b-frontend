@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import { OrdersServiceMock } from '../../mocks/orders.mock.service';
 import { Order } from '../../shared/data/order';
+import { OrderFlat } from '../../shared/data/order-flat';
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class OrdersService {
     this.dataService = new  OrdersServiceMock();
    }
 
-  getOrders(): Observable<Order[]> {
+  getOrders(): Observable<OrderFlat[]> {
     return this.dataService.getOrders();
   }
 
