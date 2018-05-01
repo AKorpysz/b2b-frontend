@@ -1,12 +1,14 @@
 import { Status } from './status';
+import { Product } from './product';
 
 export class OrderPosition {
   id: number;
-  externalNumberTrade: string;
-  externalNumberSa: string;
-  status: Status;
-  construction: string;
-  responsiblePerson: string;
-  dateCreation: Date;
-  dateLimit: Date;
+  product: Product;
+  idDocument: number;
+  amount: number;
+  discount: number;
+  suspectedDate: Date;
+  price: string;
+  currency: string;
+  notes: string;
 }

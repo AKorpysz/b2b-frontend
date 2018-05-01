@@ -3,6 +3,11 @@ import { of } from 'rxjs/observable/of';
 import { Order } from '../shared/data/order';
 import { Status } from '../shared/data/status';
 import { OrderFlat } from '../shared/data/order-flat';
+import { ConstructionInfo } from '../shared/data/construction-info';
+import { User } from '../shared/data/user';
+import { Attachment } from '../shared/data/attachment';
+import { PRODUCTS } from './products.mock.service';
+import { OrderPosition } from '../shared/data/order-position';
 export const ORDERS: OrderFlat[] = [
   {
     id: 1,
@@ -327,7 +332,77 @@ export class OrdersServiceMock {
   }
 
   getOrder(id: number) {
-    return null;
-    // return of(ORDERS.find(x => x.id === id));
+    const result = new Order();
+    result.id = 1;
+    result.idSa =
+      [
+        ['SA/1/231', new Date(2018, 3, 14)],
+        ['SA/4/235', new Date(2014, 3, 14)],
+        ['B2B/21/237', new Date(2015, 3, 14)],
+      ];
+    result.idTrade =
+      [
+        ['Trade/1/231', new Date(2018, 3, 14)],
+        ['Trade/4/235', new Date(2014, 3, 14)],
+        ['B2B/22/237', new Date(2015, 3, 14)],
+      ];
+    result.status = Status.IN_PROGRESS;
+    result.suspectedDate = new Date(2019, 1, 1);
+    result.creationDate = new Date(2018, 4, 28);
+    result.realisationDate = new Date(2018, 5, 1);
+    result.notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ';
+    result.systemNotes = 'Zamowienie OK';
+    result.construction =
+      {
+        id: 1,
+        code: 'BUD/167/12',
+        conserns: 'Umowa 1234',
+        name: 'Budowa testowa',
+        legalBasics: 'Podstawa prawna xyz',
+        personResponsible: 'Osoba odpowiedzialna XYZ',
+        shipment: 'Warszawa',
+        technicalInformation: 'Osoba techniczna ABC',
+        varrantySum: 1000,
+        varranyLenght: 24
+      };
+    result.aplicant = 'User 1';
+    result.deciding = 'User 2';
+    result.attachments =
+      [
+        {
+          id: 45,
+          name: 'testowy zalacznik',
+          extension: 'exe',
+        },
+        {
+          id: 47,
+          name: 'testowy zalacznik 2',
+          extension: 'pdf',
+        }
+        ,
+        {
+          id: 49,
+          name: 'testowy zalacznik 3',
+          extension: 'png',
+        }
+      ];
+
+    let amount = 1;
+    var positions = Array<OrderPosition>();
+    for (let prod of PRODUCTS) {
+      var position = new OrderPosition();
+      position.product = prod;
+      position.amount = amount;
+      position.price = prod.price;
+      position.id = amount -1;
+      position.notes = 'Testowe notatki lalal ';
+      position.suspectedDate = new Date();
+      position.discount = 20.0;  
+      positions.fill(position);
+      amount++;
+    }
+    result.orders = positions;
+
+    return of(result);
   }
 }
