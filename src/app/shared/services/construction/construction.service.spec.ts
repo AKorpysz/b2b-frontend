@@ -12,4 +12,8 @@ describe('ConstructionService', () => {
   it('should be created', inject([ConstructionService], (service: ConstructionService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should provide constructions', () => {
+    fail();
+  });
 });
