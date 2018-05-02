@@ -8,6 +8,7 @@ import { User } from '../shared/data/user';
 import { Attachment } from '../shared/data/attachment';
 import { PRODUCTS } from './products.mock.service';
 import { OrderPosition } from '../shared/data/order-position';
+import { Injectable } from '@angular/core';
 export const ORDERS: OrderFlat[] = [
   {
     id: 1,
@@ -325,8 +326,18 @@ export const ORDERS: OrderFlat[] = [
     producers: 'SIEMENS, FANUC'
   }
 ];
-
+@Injectable()
 export class OrdersServiceMock {
+  private editedOrder: Order;
+  getPrompts(promptText: string): Array<string> {
+    if(promptText) {
+    return [
+      'Budowa 5',
+      'osoba 1'
+    ];
+    }
+    return new Array<string>();
+  }
   getOrders(): Observable<OrderFlat[]> {
     return of(ORDERS);
   }
@@ -352,8 +363,7 @@ export class OrdersServiceMock {
     result.realisationDate = new Date(2018, 5, 1);
     result.notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ';
     result.systemNotes = 'Zamowienie OK';
-    result.construction =
-      {
+    result.construction = {
         id: 1,
         code: 'BUD/167/12',
         conserns: 'Umowa 1234',
@@ -388,9 +398,9 @@ export class OrdersServiceMock {
       ];
 
     let amount = 1;
-    var positions = Array<OrderPosition>();
+    let positions = Array<OrderPosition>();
     for (let prod of PRODUCTS) {
-      var position = new OrderPosition();
+      let position = new OrderPosition();
       position.product = prod;
       position.amount = amount;
       position.price = prod.price;
@@ -405,4 +415,30 @@ export class OrdersServiceMock {
 
     return of(result);
   }
+
+  editOrder(order: Order) {
+    if(!order){ 
+      throw new Error('Edited order cannot be empty');
+    }
+    if(order.status !== Status.IN_PROGRESS) {
+      throw new Error('Edited order should have status InProgres');
+    }
+    this.editedOrder = order;
+  }
+  removeCreatedOrder() {
+    if (this.editedOrder) {
+      this.editedOrder = null;
+    }
+  }
+  getCreatedOrder$(): Observable<Order> {
+    if (this.editedOrder) {
+      return of(this.editedOrder);
+    }
+    return null;
+  }
+  createOrder() {
+    this.editedOrder = new Order();
+    this.editedOrder.status = Status.IN_PROGRESS;
+    this.editedOrder.id = 0;
+  }  
 }

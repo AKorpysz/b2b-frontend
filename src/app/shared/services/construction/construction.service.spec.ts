@@ -1,11 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ConstructionService } from './construction.service';
+import { ConstructionServiceMock } from '../../../mocks/construction.mock.service';
 
 describe('ConstructionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ConstructionService]
+      providers: [ {provide: ConstructionService,useClass: ConstructionServiceMock }]
     });
   });
 

@@ -4,10 +4,9 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ConstructionService {
-  private dataService: ConstructionServiceMock;
-  constructor() {
-    // TODO: zamienić na odpowiedni serwis
-    this.dataService = new ConstructionServiceMock();
+  
+  // TODO: zamienić na docelowy serwis http
+  constructor(private dataService: ConstructionServiceMock) {   
    }
 
   getConstructions(): Observable<string[]> {

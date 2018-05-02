@@ -1,11 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ProductService } from './product.service';
+import { ProductsServiceMock } from '../../mocks/products.mock.service';
 
 describe('ProductService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProductService]
+      providers: [{provide: ProductService,useClass: ProductsServiceMock}]
     });
   });
 

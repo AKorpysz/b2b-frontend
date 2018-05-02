@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
+import { Injectable } from '@angular/core';
 
 export const CONSTRUCTIONS: string[] = [
 'Budowa 1',
@@ -15,6 +16,7 @@ export const CONSTRUCTIONS: string[] = [
 'Budowa 11',
 ];
 
+  @Injectable()
   export class ConstructionServiceMock {
     getConstructions(): Observable<string[]> {
       return of(CONSTRUCTIONS);

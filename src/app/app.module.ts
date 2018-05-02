@@ -29,6 +29,8 @@ import 'hammerjs';
 import { SearchService } from './shared/services/search/search.service';
 import { OrdersServiceMock } from './mocks/orders.mock.service';
 import { ConstructionService } from './shared/services/construction/construction.service';
+import { ConstructionServiceMock } from './mocks/construction.mock.service';
+import { ProductsServiceMock } from './mocks/products.mock.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,12 +60,12 @@ import { ConstructionService } from './shared/services/construction/construction
     AppRoutingModule,
   ],
   providers: [
-    OrdersService,
-    ProductService,
+    {provide:OrdersService,useClass: OrdersServiceMock },
+    {provide:ProductService,useClass: ProductsServiceMock },
     ScreenDetectorService,
     SearchService,
     LoginService,
-    ConstructionService
+    {provide: ConstructionService,useClass: ConstructionServiceMock }
     ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 import { Product } from "../shared/data/product";
 import { of } from "rxjs/observable/of";
 import { Observable } from "rxjs/Observable";
+import { Injectable } from "@angular/core";
 
 export const PRODUCTS: Product[] = [
     {
@@ -94,7 +95,7 @@ export const PRODUCTS: Product[] = [
         unit: 'szt'
     },
 ];
-
+@Injectable()
 export class ProductsServiceMock {
     getProducts(): Observable<Product[]> {
         return of(PRODUCTS);

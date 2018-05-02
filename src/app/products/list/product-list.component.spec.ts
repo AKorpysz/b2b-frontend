@@ -22,4 +22,24 @@ describe('ProductListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('contains search component', () => {
+    fail();
+  });
+
+  it('contains pagination', () => {
+    fail();
+  });
+
+  it('contains search component', () => {
+    fail();
+  });
+
+  it('has five columns', () => {
+    fail();
+  });
+
+  it('alows to add product to order', () => {
+    fail();
+  });
 });

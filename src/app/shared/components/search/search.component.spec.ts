@@ -34,4 +34,20 @@ describe('SearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should send request for search prompts', () => {
+    fail();
+  });
+
+  it('should clean search after click', () => {
+    fail();
+  });
+
+  it('should search after writing text', () => {
+    fail();
+  });
+
+  it('should search after passing hint', () => {
+    fail();
+  });
 });
