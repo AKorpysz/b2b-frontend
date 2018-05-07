@@ -6,7 +6,7 @@ import { ConstructionServiceMock } from '../../../mocks/construction.mock.servic
 describe('ConstructionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ {provide: ConstructionService,useClass: ConstructionServiceMock }]
+      providers: [ {provide: ConstructionService, useClass: ConstructionServiceMock }]
     });
   });
 
@@ -14,7 +14,10 @@ describe('ConstructionService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should provide constructions', () => {
-    fail();
-  });
+  it('should provide constructions', inject([ConstructionService], (service: ConstructionService) => {
+    let constructions: Array<string>;
+    service.getConstructions().subscribe(x => constructions = x);
+    expect(constructions).toBeDefined();
+    expect(constructions.length).toBeGreaterThan(0);
+  }));
 });

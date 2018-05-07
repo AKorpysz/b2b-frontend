@@ -16,17 +16,17 @@ import { TestHelperService } from '../../shared/utils/test-helper.service';
 import { OrderStatusPipe } from '../../shared/pipes/order-status/order-status.pipe';
 import { FormsModule } from '@angular/forms';
 import { Status } from '../../shared/data/status';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('OrderListComponent', () => {
   let component: OrderListComponent;
   let fixture: ComponentFixture<OrderListComponent>;
   let mockDetector: ScreenDetectorMock;
   let testService: TestHelperService<OrderListComponent>;
-  const routes: Routes = [];
   beforeEach(async(() => {
     mockDetector = new ScreenDetectorMock();
     TestBed.configureTestingModule({
-      imports: [MaterialModule,   BrowserAnimationsModule, FormsModule, RouterModule.forRoot(routes), ],
+      imports: [MaterialModule,   BrowserAnimationsModule, FormsModule, RouterTestingModule.withRoutes([]), ],
       declarations: [ OrderListComponent, SearchComponent, OrderStatusPipe ],
       providers: [
         { provide: SearchService, useClass: SearchServiceMock },

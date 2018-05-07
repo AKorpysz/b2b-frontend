@@ -1,0 +1,22 @@
+.gridContainer {
+  margin: 20px;
+  padding: 16px;
+  margin-top: 80px;
+ }
+
+ .search {
+   position: fixed;
+   top: 60px;
+   width: 100%
+ }
+
+ .gridContainer.mat-elevation-z8 {
+   overflow-x: auto;
+ }
+ .gridContainer .mat-table.mat-table {
+   min-width: 750px;
+ }
+
+ .container {
+   margin-top: 120px;
+ }

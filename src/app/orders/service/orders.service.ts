@@ -15,10 +15,10 @@ export class OrdersService {
   }
 
   editOrder(order: Order) {
-    if(!order){ 
+    if (!order) {
       throw new Error('Edited order cannot be empty');
     }
-    if(order.status !== Status.IN_PROGRESS) {
+    if (order.status !== Status.IN_PROGRESS) {
       throw new Error('Edited order should have status InProgres');
     }
     this.editedOrder = order;
@@ -47,7 +47,8 @@ export class OrdersService {
     return this.dataService.getOrder(id);
   }
   getPrompts(inputText: string): Array<string> {
-    if (inputText) {
+    console.log('input ' + inputText + '  ' + (inputText !== null));
+    if (inputText !== null) {
       return this.dataService.getPrompts(inputText);
     }
     return new Array<string>();

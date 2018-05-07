@@ -5,10 +5,6 @@ import { Status } from '../shared/data/status';
 import { OrderFlat } from '../shared/data/order-flat';
 import { ConstructionInfo } from '../shared/data/construction-info';
 import { User } from '../shared/data/user';
-import { Attachment } from '../shared/data/attachment';
-import { PRODUCTS } from './products.mock.service';
-import { OrderPosition } from '../shared/data/order-position';
-import { Injectable } from '@angular/core';
 export const ORDERS: OrderFlat[] = [
   {
     id: 1,
@@ -326,15 +322,12 @@ export const ORDERS: OrderFlat[] = [
     producers: 'SIEMENS, FANUC'
   }
 ];
-@Injectable()
+
 export class OrdersServiceMock {
   private editedOrder: Order;
-  getPrompts(promptText: string): Array<string> {
-    if(promptText) {
-    return [
-      'Budowa 5',
-      'osoba 1'
-    ];
+  getPrompts(inputText: string): Array<string> {
+    if (inputText !== null) {
+      return ['Budowa 1', 'Numer 23'];
     }
     return new Array<string>();
   }
@@ -342,89 +335,32 @@ export class OrdersServiceMock {
     return of(ORDERS);
   }
 
-  getOrder(id: number) {
+  getOrder(urlId: number) {
+    const flatOrder = {
+      id: urlId,
+      externalNumberTrade: 'test number A21',
+      externalNumberSa: 'test number B21',
+      status: Status.ACCEPTED,
+      construction: 'Budowa 5',
+      aplicant: 'osoba 3',
+      deciding: 'osoba 11',
+      creationDate: new Date(2000, 9, 2, 21, 7, 2),
+      realisationDate: new Date(2045, 8, 2, 13, 7, 2),
+      suspectedDate: new Date(2045, 8, 2, 13, 7, 2),
+      amountConfirmed: 7,
+      amountRejected: 0,
+      producers: 'SIEMENS, FANUC'
+    };
     const result = new Order();
-    result.id = 1;
-    result.idSa =
-      [
-        ['SA/1/231', new Date(2018, 3, 14)],
-        ['SA/4/235', new Date(2014, 3, 14)],
-        ['B2B/21/237', new Date(2015, 3, 14)],
-      ];
-    result.idTrade =
-      [
-        ['Trade/1/231', new Date(2018, 3, 14)],
-        ['Trade/4/235', new Date(2014, 3, 14)],
-        ['B2B/22/237', new Date(2015, 3, 14)],
-      ];
+    result.id = urlId;
     result.status = Status.IN_PROGRESS;
-    result.suspectedDate = new Date(2019, 1, 1);
-    result.creationDate = new Date(2018, 4, 28);
-    result.realisationDate = new Date(2018, 5, 1);
-    result.notes = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ';
-    result.systemNotes = 'Zamowienie OK';
-    result.construction = {
-        id: 1,
-        code: 'BUD/167/12',
-        conserns: 'Umowa 1234',
-        name: 'Budowa testowa',
-        legalBasics: 'Podstawa prawna xyz',
-        personResponsible: 'Osoba odpowiedzialna XYZ',
-        shipment: 'Warszawa',
-        technicalInformation: 'Osoba techniczna ABC',
-        varrantySum: 1000,
-        varranyLenght: 24
-      };
-    result.aplicant = 'User 1';
-    result.deciding = 'User 2';
-    result.attachments =
-      [
-        {
-          id: 45,
-          name: 'testowy zalacznik',
-          extension: 'exe',
-        },
-        {
-          id: 47,
-          name: 'testowy zalacznik 2',
-          extension: 'pdf',
-        }
-        ,
-        {
-          id: 49,
-          name: 'testowy zalacznik 3',
-          extension: 'png',
-        }
-      ];
-
-    let amount = 1;
-    let positions = Array<OrderPosition>();
-    for (let prod of PRODUCTS) {
-      let position = new OrderPosition();
-      position.product = prod;
-      position.amount = amount;
-      position.price = prod.price;
-      position.id = amount -1;
-      position.notes = 'Testowe notatki lalal ';
-      position.suspectedDate = new Date();
-      position.discount = 20.0;  
-      positions.fill(position);
-      amount++;
-    }
-    result.orders = positions;
-
+    result.construction = new ConstructionInfo();
+    result.aplicant = 'Testowy';
+    result.deciding = 'Decydujący ktoś';
+    // result.suspectedDate
     return of(result);
   }
 
-  editOrder(order: Order) {
-    if(!order){ 
-      throw new Error('Edited order cannot be empty');
-    }
-    if(order.status !== Status.IN_PROGRESS) {
-      throw new Error('Edited order should have status InProgres');
-    }
-    this.editedOrder = order;
-  }
   removeCreatedOrder() {
     if (this.editedOrder) {
       this.editedOrder = null;
@@ -440,5 +376,29 @@ export class OrdersServiceMock {
     this.editedOrder = new Order();
     this.editedOrder.status = Status.IN_PROGRESS;
     this.editedOrder.id = 0;
-  }  
+  }
+  editOrder(order: Order) {
+    if (!order) {
+      throw new Error('Edited order cannot be empty');
+    }
+    if (order.status !== Status.IN_PROGRESS) {
+      throw new Error('Edited order should have status InProgres');
+    }
+    this.editedOrder = order;
+  }
 }
+/*
+id: number;
+status: Status;
+construction: ConstructionInfo;
+aplicant: User;
+deciding: User;
+suspectedDate: Date;
+creationDate: Date;
+realisationDate: Date;
+notes: string;
+systemNotes: string;
+idSa: Array<[string, Date]>;
+idTrade:  Array<[string, Date]>;
+orders: OrderPosition[];
+*/
