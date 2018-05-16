@@ -1,7 +1,7 @@
-import { Product } from "../shared/data/product";
-import { of } from "rxjs/observable/of";
-import { Observable } from "rxjs/Observable";
-import { Injectable } from "@angular/core";
+import { Product } from '../shared/data/product';
+import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
 
 export const PRODUCTS: Product[] = [
     {
@@ -97,11 +97,13 @@ export const PRODUCTS: Product[] = [
 ];
 @Injectable()
 export class ProductsServiceMock {
-    getProducts(): Observable<Product[]> {
+    getProducts(filter = '', sortOrder = 'asc',
+    pageNumber = 0, pageSize = 100): Observable<Product[]> {
         return of(PRODUCTS);
     }
 
     getProduct(id: number) {
         return of(PRODUCTS.find(x => x.id === id));
     }
+
 }

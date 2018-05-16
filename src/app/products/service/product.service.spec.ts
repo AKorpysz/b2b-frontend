@@ -6,7 +6,7 @@ import { ProductsServiceMock } from '../../mocks/products.mock.service';
 describe('ProductService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{provide: ProductService,useClass: ProductsServiceMock}]
+      providers: [{provide: ProductService, useClass: ProductsServiceMock}]
     });
   });
 
@@ -33,7 +33,7 @@ describe('ProductService', () => {
   it('should get single product', () => {
     fail();
   });
-  
+
   it('should get prompts for search', () => {
     fail();
   });

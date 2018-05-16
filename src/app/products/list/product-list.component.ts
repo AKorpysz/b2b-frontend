@@ -34,7 +34,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     const products = new Array<Product>();
-    // this.productSubscription = this.productsService.getProducts().subscribe(x => products = x);
+    // this.productSubscription = this.productsService.getProducts$().subscribe(x => products = x);
     this.dataSource = new MatTableDataSource(products);
     this.getPropmptsSubscription = this.searchService.isDataNeeded$.subscribe(
       x => this.getPrompts(x)
