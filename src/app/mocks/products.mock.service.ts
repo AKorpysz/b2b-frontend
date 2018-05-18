@@ -97,13 +97,37 @@ export const PRODUCTS: Product[] = [
 ];
 @Injectable()
 export class ProductsServiceMock {
-    getProducts(filter = '', sortOrder = 'asc',
-    pageNumber = 0, pageSize = 100): Observable<Product[]> {
-        return of(PRODUCTS);
+    getProducts(filter = '', sortColumn = '', sortOrder = 'asc',
+        pageNumber = 0, pageSize = 100): Observable<Product[]> {
+        let result = PRODUCTS;
+        if (filter && filter !== '') {
+            result = result.filter(x => x.code === filter);
+        }
+        if (sortColumn && sortColumn !== '') {
+            if (sortOrder === 'asc') {
+                //TODO: przeciwiczyc funkcje sterujace
+                result = result.sort((one, two) => (one.id - two.id));
+            }
+            else {
+                //throw new Error('Sort desc');
+                // wiem że to jest okropne. do wywalenia po refaktorze                
+                result = result.reverse();
+            }
+        }
+        //if(sortColumn && sortColumn !== '')
+        return of(result.slice(pageNumber, pageNumber + pageSize));
     }
 
     getProduct(id: number) {
         return of(PRODUCTS.find(x => x.id === id));
-    }
+    }   
 
+    getPrompts(inputText: string): Array<string> {
+        if (inputText !== null) {
+          return ['Produkt 8', 'CHF'];
+        }
+        return new Array<string>();
+      }
 }
+
+
