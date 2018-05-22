@@ -11,6 +11,9 @@ import { Status } from '../../shared/data/status';
 import { Unsubscriber } from '../../shared/decorators/unsubscriber';
 import { ConstructionService } from '../../shared/services/construction/construction.service';
 import { OrdersService } from '../service/orders.service';
+import { MatTableDataSource } from '@angular/material';
+import { Attachment } from '../../shared/data/attachment';
+import { OrderPosition } from '../../shared/data/order-position';
 
 @Component({
   selector: 'app-order-details',
@@ -23,6 +26,10 @@ export class OrderDetailsComponent implements OnInit {
   private constructionSubscription: Subscription;
   public order: Order;
   public statuses: number[];
+  public idsTrade =  new MatTableDataSource<[string, Date]>();
+  public idsSa =  new MatTableDataSource<[string, Date]>();
+  public attachments =  new MatTableDataSource<Attachment>();
+  public orders =  new MatTableDataSource<OrderPosition>();
   // todo zamienić na osobną kontrolkę
   public constructions: string[];
   public filteredConstructions: Observable<string[]>;
@@ -30,6 +37,24 @@ export class OrderDetailsComponent implements OnInit {
   private fileToUpload: File = null;
   arrayBuffer: any;
   public fileData: any;
+  displayedNumberColumns = [
+   'nameId',
+   'dateId'
+  ];
+  displayedAttachmentColumns = [
+    'nameId'
+   ];
+   displayedOrdersColumns = [
+    'id',
+    'code',
+    'amount',
+    'discount',
+    'suspectedDate',
+    'price',
+    'currency',
+    'notes'
+   ];
+
   constructor(
     private ordersService: OrdersService,
     private route: ActivatedRoute,
@@ -54,6 +79,10 @@ export class OrderDetailsComponent implements OnInit {
         startWith(''),
         map(val => this.filterConstructions(val))
       );
+      this.idsTrade = new MatTableDataSource(this.order.idTrade);
+      this.idsSa = new MatTableDataSource(this.order.idSa);
+      this.attachments = new MatTableDataSource(this.order.attachments);
+      this.orders = new MatTableDataSource(this.order.orders);
     }
   }
 

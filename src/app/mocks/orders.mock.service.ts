@@ -336,28 +336,41 @@ export class OrdersServiceMock {
   }
 
   getOrder(urlId: number) {
-    const flatOrder = {
-      id: urlId,
-      externalNumberTrade: 'test number A21',
-      externalNumberSa: 'test number B21',
-      status: Status.ACCEPTED,
-      construction: 'Budowa 5',
-      aplicant: 'osoba 3',
-      deciding: 'osoba 11',
-      creationDate: new Date(2000, 9, 2, 21, 7, 2),
-      realisationDate: new Date(2045, 8, 2, 13, 7, 2),
-      suspectedDate: new Date(2045, 8, 2, 13, 7, 2),
-      amountConfirmed: 7,
-      amountRejected: 0,
-      producers: 'SIEMENS, FANUC'
-    };
     const result = new Order();
     result.id = urlId;
     result.status = Status.IN_PROGRESS;
     result.construction = new ConstructionInfo();
     result.aplicant = 'Testowy';
     result.deciding = 'Decydujący ktoś';
-    // result.suspectedDate
+    result.creationDate = new Date(2000, 9, 2, 21, 7, 2);
+    result.realisationDate = new Date(2045, 8, 2, 13, 7, 2);
+    result.suspectedDate = new Date(2045, 8, 2, 13, 7, 2);
+    result.idSa = [
+      ['Nowy numer xyz', new Date(2045, 8, 2, 12, 7, 2)],
+      ['Wcale nie xyz', new Date(2015, 8, 2, 1, 5, 2)],
+      ['Numer skonwertowany ', new Date(2025, 2, 1, 17, 7, 2)],
+      ['Numer bazowy', new Date(2015, 8, 3, 13, 7, 2)]
+    ];
+    result.idTrade = [
+      ['Nowy numer trade', new Date(2045, 8, 2, 12, 7, 2)],
+      ['Poczatek trade', new Date(2015, 8, 2, 1, 5, 2)]
+    ];
+    result.construction = {
+      code: 'Budowa 5',
+      id: 21,
+      conserns: 'Dotyczy jakiejś umowy',
+      legalBasics: 'ZAMÓWIENIE/X/Y/Z',
+      name: 'Budowa na końcu świata',
+      personResponsible: 'Ktoś tam odpowiedzialny',
+      shipment: 'Niedaleko i nie blisko',
+      technicalInformation: 'Osoba techniczna',
+      varrantySum: 100000,
+      varranyLenght: 24
+    };
+    result.attachments = [
+      {id: 1, name: 'Dokument 1', extension: 'exe'},
+      {id: 1, name: 'Oferta 2', extension: 'doc'}
+    ];
     return of(result);
   }
 

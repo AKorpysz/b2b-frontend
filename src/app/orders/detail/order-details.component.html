@@ -1,44 +1,237 @@
 <div class="form-container">
-  <mat-form-field ng-if="order.id">
-    <input matInput placeholder="Id B2B" [(ngModel)]="order.id">
-  </mat-form-field>
+  <mat-accordion multi>
 
-  <mat-form-field>
-    <input matInput placeholder="Numer Trade" [(ngModel)]="order.idTrade">
-  </mat-form-field>
+    <mat-expansion-panel [expanded]=true>
+      <mat-expansion-panel-header>
+        Zamówienie
+      </mat-expansion-panel-header>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="60px">
+        <mat-form-field ng-if="order.id">
+          <input matInput placeholder="Id B2B" [(ngModel)]="order.id">
+        </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Numer Sa" [(ngModel)]="order.idSa">
-  </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Status" [(ngModel)]="order.status">
+            <mat-option *ngFor="let status of statuses" [value]="status"> {{status | orderStatus}} </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Status" [(ngModel)]="order.status">
-        <mat-option *ngFor="let status of statuses" [value]="status"> {{status | orderStatus}} </mat-option>
-      </mat-select>
-  </mat-form-field>
+        <mat-form-field ng-if="order.aplicant">
+          <input matInput placeholder="Zgłaszający" [(ngModel)]="order.id">
+        </mat-form-field>
 
-  <mat-form-field>
-    <input matInput [formControl]="constructionAutocompleteForm" type="text" placeholder="Budowa" [(ngModel)]="order.construction"  [matAutocomplete]="constructionAutocomplete">
-  </mat-form-field>
-  <mat-autocomplete #constructionAutocomplete="matAutocomplete">
-      <mat-option *ngFor="let construction of filteredConstructions | async" [value]="construction">
-        {{ construction }}
-      </mat-option>
-    </mat-autocomplete>
 
-  <button  mat-raised-button color="primary" type="file"  id="file" click=loadData()>Wczytaj excela</button>
+        <mat-form-field ng-if="order.deciding">
+          <input matInput placeholder="Decydujący" [(ngModel)]="order.id">
+        </mat-form-field>
 
-  <div class="form-group">
-      <input type="file"
-             id="file"
-             (change)="handleFileInput($event.target.files)">
-  </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickersuspected" placeholder="Data oczekiwana" [(ngModel)]="order.suspectedDate">
+          <mat-datepicker-toggle matSuffix [for]="pickersuspected"></mat-datepicker-toggle>
+          <mat-datepicker #pickersuspected></mat-datepicker>
+        </mat-form-field>
 
-  <div *ngIf=fileData>
-      {{fileData|json}}
-  </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickercreation" placeholder="Data utworzenia" [(ngModel)]="order.creationDate">
+          <mat-datepicker-toggle matSuffix [for]="pickercreation"></mat-datepicker-toggle>
+          <mat-datepicker #pickercreation></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerrealisation" placeholder="Data realizacji" [(ngModel)]="order.realisationDate">
+          <mat-datepicker-toggle matSuffix [for]="pickerrealisation"></mat-datepicker-toggle>
+          <mat-datepicker #pickerrealisation></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]=true>
+      <mat-expansion-panel-header>
+        Numery
+      </mat-expansion-panel-header>
+      <div fxLayout="row wrap" fxLayoutAlign="space-evenly top">
+        <div class="mat-elevation-z8">
+          <p style="text-align: center">Numery Trade</p>
+          <mat-table [dataSource]=idsSa #tableSa style="min-width: 300px">
+            <ng-container matColumnDef="nameId">
+              <mat-header-cell *matHeaderCellDef> Numer </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="min-width: 150px;"> {{element[0] }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="dateId">
+              <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="min-width: 150px;"> {{element[1] | date:"dd-MM-yyyy HH:mm:ss"}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedNumberColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedNumberColumns;"></mat-row>
+          </mat-table>
+        </div>
+
+
+        <div class="mat-elevation-z8 ">
+          <p style="text-align: center">Numery Sa</p>
+          <mat-table [dataSource]=idsTrade #tableSa style="min-width: 300px">
+            <ng-container matColumnDef="nameId">
+              <mat-header-cell *matHeaderCellDef> Numer </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="min-width: 150px;"> {{element[0] }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="dateId">
+              <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="min-width: 150px;"> {{element[1] | date:"dd-MM-yyyy HH:mm:ss"}} </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedNumberColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedNumberColumns;"></mat-row>
+          </mat-table>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]=true>
+      <mat-expansion-panel-header>
+        Budowa
+      </mat-expansion-panel-header>
+      <div fxLayout="row wrap" fxLayoutGap="60px">
+        <mat-form-field>
+          <input matInput [formControl]="constructionAutocompleteForm" type="text" placeholder="Kod budowy" [(ngModel)]="order.construction.code"
+            [matAutocomplete]="constructionAutocomplete">
+        </mat-form-field>
+        <mat-autocomplete #constructionAutocomplete="matAutocomplete">
+          <mat-option *ngFor="let construction of filteredConstructions | async" [value]="construction">
+            {{ construction }}
+          </mat-option>
+        </mat-autocomplete>
+
+        <mat-form-field>
+          <input matInput placeholder="Nazwa" [(ngModel)]="order.construction.name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Długość gwarancji" [(ngModel)]="order.construction.varranyLenght">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Suma gwarancji" [(ngModel)]="order.construction.varrantySum">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Dostawa" [(ngModel)]="order.construction.shipment">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Osoba odpowiedzialna" [(ngModel)]="order.construction.personResponsible">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Informacje techniczne" [(ngModel)]="order.construction.technicalInformation">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Dotyczy" [(ngModel)]="order.construction.conserns">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Podstawa prawna" [(ngModel)]="order.construction.legalBasics">
+        </mat-form-field>
+
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]=true>
+      <mat-expansion-panel-header>
+        Inne
+      </mat-expansion-panel-header>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-evenly top">
+        <div class="mat-elevation-z8">
+          <p style="text-align: center">Załączniki</p>
+          <mat-table [dataSource]=attachments #tableAttachments style="min-width: 300px">
+            <ng-container matColumnDef="nameId">
+              <mat-header-cell *matHeaderCellDef> Nazwa </mat-header-cell>
+              <mat-cell *matCellDef="let element" style="min-width: 150px;"> {{element.name }} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedAttachmentColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedAttachmentColumns;"></mat-row>
+          </mat-table>
+        </div>
+
+        <mat-form-field style="min-width: 300px">
+          <textarea matInput placeholder="Informacje" [(ngModel)]="order.notes"></textarea>
+        </mat-form-field>
+
+        <mat-form-field style="min-width: 300px">
+          <textarea matInput placeholder="Informacje systemowe" [(ngModel)]="order.systemNotes"></textarea>
+        </mat-form-field>
+
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]=true>
+      <mat-expansion-panel-header>
+        Pozycje zamówienia
+      </mat-expansion-panel-header>
+
+      <button mat-raised-button color="primary" type="file" id="file" click=loadData()>Wczytaj excela</button>
+
+      <div class="form-group">
+        <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+      </div>
+
+      <div *ngIf=fileData>
+        {{fileData|json}}
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="center strech">
+        <div class="mat-elevation-z8">
+          <p style="text-align: center">Zamówienia</p>
+          <mat-table [dataSource]=orders #tablePositions style="min-width: 80%">
+
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef> Lp </mat-header-cell>
+              <mat-cell *matCellDef="let element"  > {{element.id}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="code">
+              <mat-header-cell *matHeaderCellDef> Produkt </mat-header-cell>
+              <mat-cell *matCellDef="let element" > {{element.product.code}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="amount">
+              <mat-header-cell *matHeaderCellDef> Ilość </mat-header-cell>
+              <mat-cell *matCellDef="let element" > {{element.amount}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef> Cena </mat-header-cell>
+                <mat-cell *matCellDef="let element" > {{element.price}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="currency">
+                <mat-header-cell *matHeaderCellDef> Waluta </mat-header-cell>
+                <mat-cell *matCellDef="let element" > {{element.currency}} </mat-cell>
+              </ng-container>
+            <ng-container matColumnDef="discount">
+              <mat-header-cell *matHeaderCellDef> Rabat </mat-header-cell>
+              <mat-cell *matCellDef="let element" > {{element.discount}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="suspectedDate">
+              <mat-header-cell *matHeaderCellDef> Oczekiwana data </mat-header-cell>
+              <mat-cell *matCellDef="let element" > {{element.suspectedDate}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="notes">
+              <mat-header-cell *matHeaderCellDef> Uwagi </mat-header-cell>
+              <mat-cell *matCellDef="let element" > {{element.notes}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedOrdersColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedOrdersColumns;"></mat-row>
+          </mat-table>
+        </div>
+
+
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
 </div>
-
-
-
-

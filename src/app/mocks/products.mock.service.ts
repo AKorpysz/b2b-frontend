@@ -105,22 +105,21 @@ export class ProductsServiceMock {
         }
         if (sortColumn && sortColumn !== '') {
             if (sortOrder === 'asc') {
-                //TODO: przeciwiczyc funkcje sterujace
+                // TODO: przeciwiczyc funkcje sterujace
                 result = result.sort((one, two) => (one.id - two.id));
-            }
-            else {
-                //throw new Error('Sort desc');
-                // wiem że to jest okropne. do wywalenia po refaktorze                
+            } else {
+                // throw new Error('Sort desc');
+                // wiem że to jest okropne. do wywalenia po refaktorze
                 result = result.reverse();
             }
         }
-        //if(sortColumn && sortColumn !== '')
+        // if(sortColumn && sortColumn !== '')
         return of(result.slice(pageNumber, pageNumber + pageSize));
     }
 
     getProduct(id: number) {
         return of(PRODUCTS.find(x => x.id === id));
-    }   
+    }
 
     getPrompts(inputText: string): Array<string> {
         if (inputText !== null) {
