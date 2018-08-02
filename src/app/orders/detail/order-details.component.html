@@ -192,36 +192,35 @@
 
             <ng-container matColumnDef="id">
               <mat-header-cell *matHeaderCellDef> Lp </mat-header-cell>
-              <mat-cell *matCellDef="let element"  > {{element.id}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="code">
               <mat-header-cell *matHeaderCellDef> Produkt </mat-header-cell>
-              <mat-cell *matCellDef="let element" > {{element.product.code}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.product.code}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="amount">
               <mat-header-cell *matHeaderCellDef> Ilość </mat-header-cell>
-              <mat-cell *matCellDef="let element" > {{element.amount}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="price">
-                <mat-header-cell *matHeaderCellDef> Cena </mat-header-cell>
-                <mat-cell *matCellDef="let element" > {{element.price}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="currency">
-                <mat-header-cell *matHeaderCellDef> Waluta </mat-header-cell>
-                <mat-cell *matCellDef="let element" > {{element.currency}} </mat-cell>
-              </ng-container>
+              <mat-header-cell *matHeaderCellDef> Cena </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="currency">
+              <mat-header-cell *matHeaderCellDef> Waluta </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.currency}} </mat-cell>
+            </ng-container>
             <ng-container matColumnDef="discount">
               <mat-header-cell *matHeaderCellDef> Rabat </mat-header-cell>
-              <mat-cell *matCellDef="let element" > {{element.discount}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.discount}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="suspectedDate">
               <mat-header-cell *matHeaderCellDef> Oczekiwana data </mat-header-cell>
-              <mat-cell *matCellDef="let element" > {{element.suspectedDate}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.suspectedDate}} </mat-cell>
             </ng-container>
-
             <ng-container matColumnDef="notes">
               <mat-header-cell *matHeaderCellDef> Uwagi </mat-header-cell>
-              <mat-cell *matCellDef="let element" > {{element.notes}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.notes}} </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedOrdersColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedOrdersColumns;"></mat-row>
